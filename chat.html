@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Email Assistant - Live Chat</title>
+    <meta name="description" content="Chat with our AI Email Assistant. Get instant help with email management and automation.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1a1a1a; background: #faf9f7; display: flex; flex-direction: column; height: 100vh; }
+        
+        .chat-container { max-width: 800px; margin: 0 auto; padding: 20px; flex: 1; display: flex; flex-direction: column; background: #ffffff; border-radius: 12px 12px 0 0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); overflow: hidden; }
+        
+        .chat-header { padding: 20px; border-bottom: 1px solid #e5e5e5; background: #1a1a1a; color: #ffffff; }
+        .chat-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.5em; margin: 0; font-weight: 600; }
+        .chat-header p { font-size: 0.9em; opacity: 0.9; margin: 5px 0 0 0; }
+        .connection-status { font-size: 0.85em; padding: 4px 12px; background: rgba(255, 255, 255, 0.2); border-radius: 4px; display: inline-block; }
+        .connection-status.connected { background: rgba(0, 200, 0, 0.2); }
+        
+        .chat-messages { flex: 1; overflow-y: auto; padding: 20px; background: #f9f9f9; display: flex; flex-direction: column; gap: 15px; }
+        
+        .message { max-width: 80%; padding: 12px 16px; border-radius: 8px; font-size: 0.95em; line-height: 1.5; }
+        .message.user { align-self: flex-end; background: #1a1a1a; color: #ffffff; margin-left: auto; }
+        .message.agent { align-self: flex-start; background: #e5e5e5; color: #1a1a1a; border: 1px solid #d4d4d4; }
+        .message.system { align-self: center; background: #f5f5f5; color: #666666; font-size: 0.85em; text-align: center; max-width: 100%; }
+        .message strong { font-weight: 600; }
+        
+        .typing-indicator { display: none; align-self: flex-start; background: #e5e5e5; padding: 8px 12px; border-radius: 6px; font-size: 0.85em; color: #666666; font-style: italic; }
+        .typing-indicator.active { display: block; }
+        .typing-indicator span { animation: blink 1.4s infinite both; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes blink {
+            0%, 60%, 100% { opacity: 0; }
+            30% { opacity: 1; }
+        }
+        
+        .chat-input { padding: 20px; border-top: 1px solid #e5e5e5; background: #ffffff; display: flex; gap: 10px; }
+        .chat-input input { flex: 1; padding: 14px 16px; border: 1px solid #e5e5e5; border-radius: 6px; font-size: 1em; font-family: inherit; outline: none; transition: border-color 0.2s ease-out; }
+        .chat-input input:focus { border-color: #1a1a1a; box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1); }
+        .chat-input button { padding: 14px 24px; background: #1a1a1a; color: #ffffff; border: none; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; transition: all 0.2s ease-out; white-space: nowrap; }
+        .chat-input button:hover { background: #333333; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
+        .chat-input button:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
+        
+        .config-toggle { position: fixed; top: 20px; right: 20px; background: #ffffff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); z-index: 100; cursor: pointer; }
+        .config-toggle:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+        .config-panel { display: none; position: fixed; top: 70px; right: 20px; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); z-index: 100; min-width: 300px; }
+        .config-panel.active { display: block; }
+        .config-panel label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9em; }
+        .config-panel input { width: 100%; padding: 8px 12px; border: 1px solid #e5e5e5; border-radius: 4px; font-size: 0.95em; margin-bottom: 15px; }
+        .config-panel button { width: 100%; padding: 10px; background: #1a1a1a; color: #ffffff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        
+        @media (max-width: 768px) {
+            body { height: calc(100vh - 60px); }
+            .config-toggle { top: auto; bottom: 20px; right: 20px; left: 20px; }
+            .config-panel { bottom: 70px; right: 20px; left: 20px; top: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="config-toggle" onclick="toggleConfig()">
+        ⚙️ Settings
+    </div>
+    
+    <div class="config-panel" id="configPanel">
+        <h3 style="margin-top: 0;">Chat Configuration</h3>
+        <p style="color: #666666; font-size: 0.9em; margin-bottom: 20px;">
+            Connect this chat to an AI agent. Choose your connection method:
+        </p>
+        
+        <label>Connection Method</label>
+        <select id="connectionMethod" onchange="updateConfig()">
+            <option value="email">Email Bridge (Simple)</option>
+            <option value="cloudflare">Cloudflare Tunnel (Advanced)</option>
+            <option value="demo">Demo Mode (Simulated)</option>
+        </select>
+        
+        <div id="emailConfig">
+            <label>Agent Email</label>
+            <input type="email" id="agentEmail" value="jarvis.ai.email.agent@gmail.com" placeholder="agent@example.com">
+        </div>
+        
+        <div id="cloudflareConfig" style="display: none;">
+            <label>Cloudflare Tunnel URL</label>
+            <input type="url" id="tunnelUrl" placeholder="https://your-tunnel.trycloudflare.com">
+            <p style="color: #666666; font-size: 0.85em; margin: 10px 0;">
+                <strong>Note:</strong> Requires a local server running with Cloudflare tunnel active.
+                <br><a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/" target="_blank" style="color: #1a1a1a;">Learn about Cloudflare Tunnels</a>
+            </p>
+        </div>
+        
+        <button onclick="saveConfig()">Save & Connect</button>
+    </div>
+    
+    <div class="chat-container">
+        <div class="chat-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1>AI Email Assistant</h1>
+                    <p>Available to help with email automation</p>
+                </div>
+                <div class="connection-status" id="connectionStatus">
+                    🟡 Disconnected
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message system">
+                <strong>Welcome to AI Email Assistant!</strong><br>
+                I'm here to help you with email management, automation, and productivity questions.<br>
+                <br>
+                How can I assist you today?
+            </div>
+        </div>
+        
+        <div class="typing-indicator" id="typingIndicator">
+            AI is typing<span>.</span><span>.</span><span>.</span>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <button id="sendButton" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        let isConnected = false;
+        let connectionMethod = 'email';
+        let agentEmail = 'jarvis.ai.email.agent@gmail.com';
+        let tunnelUrl = '';
+
+        function toggleConfig() {
+            document.getElementById('configPanel').classList.toggle('active');
+        }
+
+        function updateConfig() {
+            connectionMethod = document.getElementById('connectionMethod').value;
+            
+            document.getElementById('emailConfig').style.display = 'none';
+            document.getElementById('cloudflareConfig').style.display = 'none';
+            
+            if (connectionMethod === 'email') {
+                document.getElementById('emailConfig').style.display = 'block';
+            } else if (connectionMethod === 'cloudflare') {
+                document.getElementById('cloudflareConfig').style.display = 'block';
+            }
+        }
+
+        function saveConfig() {
+            agentEmail = document.getElementById('agentEmail').value;
+            tunnelUrl = document.getElementById('tunnelUrl').value;
+            
+            // Save to localStorage
+            localStorage.setItem('chatConfig', JSON.stringify({
+                method: connectionMethod,
+                email: agentEmail,
+                tunnel: tunnelUrl
+            }));
+            
+            // Connect
+            connect();
+            
+            // Hide panel
+            document.getElementById('configPanel').classList.remove('active');
+        }
+
+        function loadConfig() {
+            const saved = localStorage.getItem('chatConfig');
+            if (saved) {
+                const config = JSON.parse(saved);
+                connectionMethod = config.method || 'email';
+                agentEmail = config.email || 'jarvis.ai.email.agent@gmail.com';
+                tunnelUrl = config.tunnel || '';
+                
+                document.getElementById('connectionMethod').value = connectionMethod;
+                document.getElementById('agentEmail').value = agentEmail;
+                document.getElementById('tunnelUrl').value = tunnelUrl;
+            }
+        }
+
+        function connect() {
+            const status = document.getElementById('connectionStatus');
+            
+            if (connectionMethod === 'demo') {
+                isConnected = true;
+                status.innerHTML = '🟢 Demo Mode';
+                status.classList.add('connected');
+            } else if (connectionMethod === 'email') {
+                // Email bridge mode - simulate connection
+                isConnected = true;
+                status.innerHTML = '🟢 Email Bridge';
+                status.classList.add('connected');
+            } else if (connectionMethod === 'cloudflare' && tunnelUrl) {
+                // Cloudflare tunnel mode - would connect to WebSocket
+                // For demo, just simulate
+                isConnected = true;
+                status.innerHTML = '🟢 Cloudflare Tunnel';
+                status.classList.add('connected');
+            } else {
+                isConnected = false;
+                status.innerHTML = '🟡 Not Configured';
+                status.classList.remove('connected');
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function addMessage(text, type = 'user') {
+            const messages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = type === 'user' ? text : text.replace(/\n/g, '<br>');
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function showTyping() {
+            document.getElementById('typingIndicator').classList.add('active');
+        }
+
+        function hideTyping() {
+            document.getElementById('typingIndicator').classList.remove('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            if (!isConnected) {
+                addMessage('Please configure the connection settings first (⚙️).', 'system');
+                return;
+            }
+            
+            if (connectionMethod === 'email') {
+                sendViaEmail(message);
+            } else if (connectionMethod === 'cloudflare') {
+                sendViaCloudflare(message);
+            } else {
+                simulateAgentResponse(message);
+            }
+        }
+
+        function sendViaEmail(message) {
+            showTyping();
+            
+            // Send email to agent
+            const subject = encodeURIComponent(`Chat Inquiry: ${message.substring(0, 50)}...`);
+            const body = encodeURIComponent(`Chat Message:\n\n${message}\n\n---\nThis message was sent from the AI Email Assistant chat interface.\nTime: ${new Date().toISOString()}`);
+            
+            window.location.href = `mailto:${agentEmail}?subject=${subject}&body=${body}`;
+            
+            // Simulate agent response after delay
+            setTimeout(() => {
+                hideTyping();
+                addMessage(`Thank you for your message! I've sent it to the AI agent (${agentEmail}). You should receive a response via email shortly.\n\nIn a production setup, I would respond directly in this chat window.`, 'agent');
+            }, 1500);
+        }
+
+        function sendViaCloudflare(message) {
+            showTyping();
+            
+            // In production, this would use WebSocket to connect to Cloudflare tunnel
+            // For now, simulate
+            
+            setTimeout(() => {
+                hideTyping();
+                if (tunnelUrl) {
+                    addMessage(`Connecting to Cloudflare tunnel at ${tunnelUrl}... (Simulation)`, 'agent');
+                    addMessage(`Message: "${message}"`, 'agent');
+                    addMessage(`In production, this would connect to your local AI agent via Cloudflare tunnel. The agent would process the message and respond directly in this chat.\n\nTo set up Cloudflare tunnel:\n1. Run: cloudflared tunnel --url http://localhost:3000\n2. Use the provided URL in Settings`, 'agent');
+                } else {
+                    addMessage('Please configure the Cloudflare tunnel URL in Settings (⚙️).', 'system');
+                }
+            }, 1500);
+        }
+
+        function simulateAgentResponse(userMessage) {
+            showTyping();
+            
+            // Simple keyword-based responses for demo
+            setTimeout(() => {
+                hideTyping();
+                
+                const lower = userMessage.toLowerCase();
+                
+                if (lower.includes('price') || lower.includes('cost')) {
+                    addMessage('Our pricing starts at $49/month for individuals and $59/seat for teams. Check out our Pricing page for more details!', 'agent');
+                } else if (lower.includes('trial') || lower.includes('free')) {
+                    addMessage('Yes! We offer a 30-day free trial. No credit card required. Just email us to get started!', 'agent');
+                } else if (lower.includes('team') || lower.includes('company')) {
+                    addMessage('The Team plan is perfect for growing companies at $119/seat. It includes collaboration features, analytics, and advanced AI customization.', 'agent');
+                } else if (lower.includes('help') || lower.includes('support')) {
+                    addMessage('I can help you with email automation, AI drafts, thread summaries, and more. What specific question do you have?', 'agent');
+                } else {
+                    addMessage(`I understand you're asking about: "${userMessage}". In a full setup, I would provide detailed assistance based on your question.\n\nFor now, this is demo mode. Configure email or Cloudflare tunnel in Settings (⚙️) for real AI responses!`, 'agent');
+                }
+            }, 2000);
+        }
+
+        // Load config on page load
+        loadConfig();
+    </script>
+</body>
+</html>
