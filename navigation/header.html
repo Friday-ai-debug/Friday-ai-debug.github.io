@@ -1,0 +1,205 @@
+<header class="site-header">
+    <div class="container">
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="/" class="logo-link">
+                    <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="3" fill="none"/>
+                        <path d="M15 15H20M20 25H25" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M20 10V30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <span class="logo-text">AI Email Assistant</span>
+                </a>
+            </div>
+
+            <div class="nav-menu desktop-only">
+                <a href="/products/" class="nav-link">Products</a>
+                <a href="/cases/" class="nav-link">Cases</a>
+                <a href="/resources/guides/" class="nav-link">Resources</a>
+                <a href="/pricing.html" class="nav-link">Pricing</a>
+                <a href="/chat.html" class="nav-link nav-cta">Chat with AI</a>
+            </div>
+
+            <button class="mobile-menu-btn mobile-only" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <div class="mobile-nav mobile-only" id="mobileNav">
+            <a href="/products/" class="mobile-nav-link">Products</a>
+            <a href="/cases/" class="mobile-nav-link">Cases</a>
+            <a href="/resources/guides/" class="mobile-nav-link">Resources</a>
+            <a href="/pricing.html" class="mobile-nav-link">Pricing</a>
+            <a href="/chat.html" class="mobile-nav-link nav-cta">Chat with AI</a>
+        </div>
+    </div>
+</header>
+
+<style>
+    .site-header {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e5e5;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .main-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+    }
+
+    .nav-brand .logo-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: #1a1a1a;
+        transition: color 0.2s ease-out;
+    }
+
+    .nav-brand .logo-link:hover {
+        color: #333333;
+    }
+
+    .logo-icon {
+        color: #1a1a1a;
+    }
+
+    .logo-text {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 1.4em;
+        font-weight: 600;
+    }
+
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .nav-link {
+        color: #666666;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1em;
+        transition: color 0.2s ease-out;
+        position: relative;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #1a1a1a;
+        transition: width 0.3s ease-out;
+    }
+
+    .nav-link:hover {
+        color: #1a1a1a;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .nav-cta {
+        background: #1a1a1a;
+        color: #ffffff;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.2s ease-out;
+    }
+
+    .nav-cta:hover {
+        background: #333333;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .mobile-menu-btn span {
+        width: 25px;
+        height: 3px;
+        background: #1a1a1a;
+        border-radius: 2px;
+        transition: all 0.3s ease-out;
+    }
+
+    .mobile-nav {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        padding: 20px;
+        background: #ffffff;
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .mobile-nav-link {
+        padding: 15px;
+        color: #666666;
+        text-decoration: none;
+        border-bottom: 1px solid #f0f0f0;
+        transition: all 0.2s ease-out;
+    }
+
+    .mobile-nav-link:hover {
+        background: #f9f9f9;
+        color: #1a1a1a;
+    }
+
+    .mobile-nav-link.nav-cta {
+        background: #1a1a1a;
+        color: #ffffff;
+        border-radius: 6px;
+        margin-top: 10px;
+    }
+
+    .mobile-nav-link.nav-cta:hover {
+        background: #333333;
+        color: #ffffff;
+    }
+
+    .mobile-nav.active {
+        display: flex;
+    }
+
+    @media (max-width: 768px) {
+        .desktop-only {
+            display: none !important;
+        }
+
+        .mobile-only {
+            display: flex !important;
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    function toggleMobileMenu() {
+        const mobileNav = document.getElementById('mobileNav');
+        mobileNav.classList.toggle('active');
+    }
+</script>
