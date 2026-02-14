@@ -36,28 +36,189 @@
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1a1a1a; background: #faf9f7; }
         .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
         
+        /* Header Styles */
+        .site-header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .nav-brand .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #1a1a1a;
+            transition: color 0.2s ease-out;
+        }
+
+        .nav-brand .logo-link:hover {
+            color: #333333;
+        }
+
+        .logo-icon {
+            color: #1a1a1a;
+        }
+
+        .logo-text {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #666666;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            transition: color 0.2s ease-out;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1a1a1a;
+            transition: width 0.3s ease-out;
+        }
+
+        .nav-link:hover {
+            color: #1a1a1a;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s ease-out;
+        }
+
+        .nav-cta:hover {
+            background: #333333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #1a1a1a;
+            border-radius: 2px;
+            transition: all 0.3s ease-out;
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 20px;
+            background: #ffffff;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .mobile-nav-link {
+            padding: 15px;
+            color: #666666;
+            text-decoration: none;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.2s ease-out;
+        }
+
+        .mobile-nav-link:hover {
+            background: #f9f9f9;
+            color: #1a1a1a;
+        }
+
+        .mobile-nav-link.nav-cta {
+            background: #1a1a1a;
+            color: #ffffff;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .mobile-nav-link.nav-cta:hover {
+            background: #333333;
+            color: #ffffff;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-only {
+                display: none !important;
+            }
+
+            .mobile-only {
+                display: flex !important;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+
+        /* Hero Styles */
         .hero { text-align: center; padding: 60px 0; margin-bottom: 80px; }
         .hero h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 3em; margin-bottom: 30px; font-weight: 600; letter-spacing: -0.02em; color: #1a1a1a; line-height: 1.2; }
         .hero p { color: #666666; font-size: 1.2em; margin-bottom: 30px; }
-        .hero .cta { background: #1a1a1a; color: #ffffff; padding: 20px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1.1em; display: inline-block; transition: all 0.2s ease-out; }
+        .hero .cta { background: #1a1a1a; color: #ffffff; padding: 20px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1.1em; display: inline-block; margin: 10px; transition: all 0.2s ease-out; }
         .hero .cta:hover { background: #333333; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); }
 
-        h2 { font-family: 1em 'Inter', sans-serif; font-size: 2em; margin: 60px 0 30px; font-weight: 600; color: #1a1a1a; border-bottom: 1px solid #e5e5e5; padding-bottom: 15px; letter-spacing: -0.01em; }
-        h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.6em; margin: 50px 0 20px; font-weight: 600; color: #1a1a1a; }
+        /* Section Styles */
+        .section-break { height: 1px; background: #e5e5e5; margin: 60px 0; border: none; }
+        h2 { font-family: 'Inter', sans-serif; font-size: 2em; margin: 60px 0 30px; font-weight: 600; color: #1a1a1a; border-bottom: 1px solid #e5e5e5; padding-bottom: 15px; letter-spacing: -0.01em; }
         .section-title { font-size: 1.3em; font-weight: 600; color: #333333; margin-bottom: 15px; }
         p { margin-bottom: 20px; color: #666666; font-size: 1.05em; }
-        
+
+        /* Card Styles */
         .card { background: #ffffff; padding: 40px 30px; border-radius: 12px; border: 1px solid #e5e5e5; margin: 30px 0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
         .card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border-color: #d4d4d4; }
         .card.featured { border: 2px solid #1a1a1a; transform: translateY(-4px); }
         .card.featured:hover { transform: translateY(-4px); }
-        
         .card h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.5em; margin-bottom: 20px; color: #1a1a1a; }
         .card-cta { width: 100%; padding: 16px; margin-top: 25px; text-align: center; background: #1a1a1a; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05em; display: block; transition: all 0.2s ease-out; }
         .card-cta:hover { background: #333333; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
         
+        /* Grid Styles */
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin: 40px 0; }
-        
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 40px 0; }
         .stat-card { background: #ffffff; padding: 30px; border-radius: 12px; border: 1px solid #e5e5e5; text-align: center; }
         .stat-number { font-size: 2.5em; font-weight: 700; color: #1a1a1a; margin: 10px 0; }
@@ -82,12 +243,134 @@
         .case-description { color: #666666; font-size: 0.95em; line-height: 1.5; }
         .case-link { color: #1a1a1a; font-weight: 600; text-decoration: none; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; display: inline-block; }
         
+        /* Footer Styles */
+        .site-footer {
+            background: #ffffff;
+            border-top: 1px solid #e5e5e5;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-link {
+            color: #666666;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.2s ease-out;
+        }
+
+        .footer-link:hover {
+            color: #1a1a1a;
+        }
+
+        .footer-description {
+            color: #666666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: border-color 0.2s ease-out;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+        }
+
+        .newsletter-form button {
+            padding: 12px 24px;
+            background: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+        }
+
+        .newsletter-form button:hover {
+            background: #333333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .footer-bottom {
+            background: #f9f9f9;
+            padding: 30px 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-copyright {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666666;
+            font-size: 0.9em;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .separator {
+            color: #cccccc;
+        }
+
         @media (max-width: 768px) {
-            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .container { padding: 40px 15px; }
+            .hero h1 { font-size: 2.2em; }
+            .hero p { font-size: 1.1em; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 30px; }
             .product-grid { grid-template-columns: 1fr; }
             .cases-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.2em; }
             .stats-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; gap: 30px; margin-bottom: 30px; }
+            .footer-section:last-child { grid-column: 1; margin-bottom: 30px; }
+            .footer-copyright { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-legal { justify-content: center; }
         }
     </style>
 </head>
@@ -184,21 +467,21 @@
                 <div class="product-icon">📧</div>
                 <h3>Email Automation</h3>
                 <p class="product-description">AI-powered email management with smart drafts, thread summaries, and automation</p>
-                <a href="/products/email-automation.html" class="product-link">Learn More →</a>
+                <a href="/products/" class="product-link">Learn More →</a>
             </div>
 
             <div class="product-card">
                 <div class="product-icon">👥</div>
                 <h3>Team Collaboration</h3>
                 <p class="product-description">Real-time team features with shared snippets and analytics</p>
-                <a href="/products/team-collaboration.html" class="product-link">Learn More →</a>
+                <a href="/products/" class="product-link">Learn More →</a>
             </div>
 
             <div class="product-card">
                 <div class="product-icon">📊</div>
                 <h3>AI Analytics</h3>
                 <p class="product-description">AI-driven email analytics and insights</p>
-                <a href="/products/ai-analytics.html" class="product-link">Learn More →</a>
+                <a href="/products/" class="product-link">Learn More →</a>
             </div>
         </div>
 
@@ -282,6 +565,7 @@
                         <a href="https://github.com/Friday-ai-debug" class="footer-link">GitHub</a>
                         <a href="/privacy.html" class="footer-link">Privacy</a>
                     </nav>
+                </div>
 
                 <div class="footer-section">
                     <h3 class="footer-title">Stay Updated</h3>
