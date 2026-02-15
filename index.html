@@ -194,7 +194,7 @@
                 display: flex;
             }
         }
-
+        
         /* Hero Styles */
         .hero { text-align: center; padding: 60px 0; margin-bottom: 80px; }
         .hero h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 3em; margin-bottom: 30px; font-weight: 600; letter-spacing: -0.02em; color: #1a1a1a; line-height: 1.2; }
@@ -216,7 +216,7 @@
         .card h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.5em; margin-bottom: 20px; color: #1a1a1a; }
         .card-cta { width: 100%; padding: 16px; margin-top: 25px; text-align: center; background: #1a1a1a; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05em; display: block; transition: all 0.2s ease-out; }
         .card-cta:hover { background: #333333; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
-        
+
         /* Grid Styles */
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin: 40px 0; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 40px 0; }
@@ -224,7 +224,7 @@
         .stat-number { font-size: 2.5em; font-weight: 700; color: #1a1a1a; margin: 10px 0; }
         .stat-label { color: #666666; font-size: 1em; }
         .stat-description { color: #666666; font-size: 0.9em; }
-        
+
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 40px 0; }
         .product-card { background: #ffffff; padding: 30px; border-radius: 12px; border: 1px solid #e5e5e5; transition: all 0.3s ease-out; }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border-color: #d4d4d4; }
@@ -233,7 +233,7 @@
         .product-description { color: #666666; font-size: 0.95em; margin-bottom: 15px; }
         .product-link { text-decoration: none; color: #1a1a1a; font-weight: 600; display: block; margin-top: 20px; transition: color 0.2s ease-out; }
         .product-link:hover { color: #333333; }
-        
+
         .cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin: 40px 0; }
         .case-card { background: #ffffff; padding: 0; border-radius: 12px; border: 1px solid #e5e5e5; overflow: hidden; }
         .case-image { height: 200px; background: linear-gradient(135deg, #f9f9f9, #ffffff); display: flex; align-items: center; justify-content: center; color: #666666; font-size: 1.2em; font-weight: 600; }
@@ -242,7 +242,7 @@
         .case-stat { color: #333333; font-weight: 600; font-size: 1.1em; margin: 15px 0; }
         .case-description { color: #666666; font-size: 0.95em; line-height: 1.5; }
         .case-link { color: #1a1a1a; font-weight: 600; text-decoration: none; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; display: inline-block; }
-        
+
         /* Footer Styles */
         .site-footer {
             background: #ffffff;
@@ -258,106 +258,23 @@
             margin-bottom: 40px;
         }
 
-        .footer-section {
-            margin-bottom: 20px;
-        }
+        .footer-section { margin-bottom: 20px; }
+        .footer-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.2em; margin-bottom: 20px; color: #1a1a1a; font-weight: 600; }
+        .footer-links { display: flex; flex-direction: column; gap: 8px; }
+        .footer-link { color: #666666; text-decoration: none; font-size: 0.95em; transition: color 0.2s ease-out; }
+        .footer-link:hover { color: #1a1a1a; }
+        .footer-description { color: #666666; font-size: 0.9em; margin-bottom: 15px; }
+        .newsletter-form { display: flex; gap: 8px; }
+        .newsletter-form input { flex: 1; padding: 12px 16px; border: 1px solid #e5e5e5; border-radius: 6px; font-size: 0.9em; transition: border-color 0.2s ease-out; }
+        .newsletter-form input:focus { outline: none; border-color: #1a1a1a; box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1); }
+        .newsletter-form button { padding: 12px 24px; background: #1a1a1a; color: #ffffff; border: none; border-radius: 6px; font-weight: 600; font-size: 0.95em; cursor: pointer; transition: all 0.2s ease-out; }
+        .newsletter-form button:hover { background: #333333; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
 
-        .footer-title {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            font-weight: 600;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .footer-link {
-            color: #666666;
-            text-decoration: none;
-            font-size: 0.95em;
-            transition: color 0.2s ease-out;
-        }
-
-        .footer-link:hover {
-            color: #1a1a1a;
-        }
-
-        .footer-description {
-            color: #666666;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 8px;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid #e5e5e5;
-            border-radius: 6px;
-            font-size: 0.9em;
-            transition: border-color 0.2s ease-out;
-        }
-
-        .newsletter-form input:focus {
-            outline: none;
-            border-color: #1a1a1a;
-            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
-        }
-
-        .newsletter-form button {
-            padding: 12px 24px;
-            background: #1a1a1a;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.95em;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-        }
-
-        .newsletter-form button:hover {
-            background: #333333;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-        }
-
-        .footer-bottom {
-            background: #f9f9f9;
-            padding: 30px 0;
-            border-top: 1px solid #e5e5e5;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .footer-copyright {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #666666;
-            font-size: 0.9em;
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: 20px;
-        }
-
-        .separator {
-            color: #cccccc;
-        }
+        .footer-bottom { background: #f9f9f9; padding: 30px 0; border-top: 1px solid #e5e5e5; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .footer-copyright { display: flex; justify-content: space-between; align-items: center; color: #666666; font-size: 0.9em; }
+        .footer-legal { display: flex; gap: 20px; }
+        .separator { color: #cccccc; }
 
         @media (max-width: 768px) {
             .container { padding: 40px 15px; }
@@ -396,7 +313,7 @@
                     <a href="/resources/guides/" class="nav-link">Resources</a>
                     <a href="/pricing.html" class="nav-link">Pricing</a>
                     <a href="/contact.html" class="nav-link">Contact</a>
-                    <a href="/chat.html" class="nav-link nav-cta">Chat with AI</a>
+                    <a href="/chat.html" class="nav-cta">Chat with AI</a>
                 </div>
 
                 <button class="mobile-menu-btn mobile-only" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
@@ -465,21 +382,21 @@
         <div class="product-grid">
             <div class="product-card">
                 <div class="product-icon">📧</div>
-                <h3>Email Automation</h3>
+                <div class="product-name">Email Automation</div>
                 <p class="product-description">AI-powered email management with smart drafts, thread summaries, and automation</p>
                 <a href="/products/" class="product-link">Learn More →</a>
             </div>
 
             <div class="product-card">
                 <div class="product-icon">👥</div>
-                <h3>Team Collaboration</h3>
+                <div class="product-name">Team Collaboration</div>
                 <p class="product-description">Real-time team features with shared snippets and analytics</p>
                 <a href="/products/" class="product-link">Learn More →</a>
             </div>
 
             <div class="product-card">
                 <div class="product-icon">📊</div>
-                <h3>AI Analytics</h3>
+                <div class="product-name">AI Analytics</div>
                 <p class="product-description">AI-driven email analytics and insights</p>
                 <a href="/products/" class="product-link">Learn More →</a>
             </div>
@@ -493,8 +410,8 @@
             <div class="case-card">
                 <div class="case-image">🚀</div>
                 <div class="case-content">
-                    <h3>Tech Startup</h3>
-                    <p class="case-stat">60% Faster Responses</p>
+                    <div class="case-title">Tech Startup</div>
+                    <div class="case-stat">60% Faster Responses</div>
                     <p class="case-description">Implemented AI Email Assistant and saved 15 hours/week per team member</p>
                 </div>
             </div>
@@ -502,8 +419,8 @@
             <div class="case-card">
                 <div class="case-image">🏢</div>
                 <div class="case-content">
-                    <h3>Enterprise</h3>
-                    <p class="case-stat">30% More Productivity</p>
+                    <div class="case-title">Enterprise</div>
+                    <div class="case-stat">30% More Productivity</div>
                     <p class="case-description">Streamlined workflows and increased team collaboration</p>
                 </div>
             </div>
@@ -511,8 +428,8 @@
             <div class="case-card">
                 <div class="case-image">📝</div>
                 <div class="case-content">
-                    <h3>Solo Founder</h3>
-                    <p class="stat">20 Hours/Week</p>
+                    <div class="case-title">Solo Founder</div>
+                    <div class="case-stat">20 Hours/Week</div>
                     <p class="case-description">Individual plan optimized for solo productivity</p>
                 </div>
             </div>
@@ -523,12 +440,12 @@
         <h2>Start Your Free Trial</h2>
 
         <div class="card featured">
-            <h3>30-Day Risk-Free Trial</h3>
+            <div class="card-title">30-Day Risk-Free Trial</div>
             <p>No credit card required. See results before paying.</p>
             <ul>
-                <li>✓ Full access to all features</li>
-                <li>✓ Email and chat support</li>
-                <li>✓ Cancel anytime</li>
+                <li>Full access to all features</li>
+                <li>Email and chat support</li>
+                <li>Cancel anytime</li>
             </ul>
             <a href="/contact.html" class="card-cta">Start Free Trial</a>
         </div>
@@ -541,9 +458,9 @@
                 <div class="footer-section">
                     <h3 class="footer-title">Products</h3>
                     <nav class="footer-links">
-                        <a href="/products/email-automation.html" class="footer-link">Email Automation</a>
-                        <a href="/products/team-collaboration.html" class="footer-link">Team Collaboration</a>
-                        <a href="/products/ai-analytics.html" class="footer-link">AI Analytics</a>
+                        <a href="/products/" class="footer-link">Email Automation</a>
+                        <a href="/products/" class="footer-link">Team Collaboration</a>
+                        <a href="/products/" class="footer-link">AI Analytics</a>
                     </nav>
                 </div>
 
